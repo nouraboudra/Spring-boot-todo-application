@@ -1,5 +1,8 @@
 package ma.TodoApplication.TodoApplication.entities;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,20 +23,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //Check if null
-    @Column(name = "first_name")
+    @NotBlank(message ="First name is null ")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    //Check if null
+    @NotBlank(message ="Last name is null" )
     @Column(name = "last_name")
     private String lastName;
 
-    //Check if null & validate email & unique
+
+    @Email(message = "Email not valid check your mail !!! ")
     @Column(name = "email",unique = true)
     private String email;
 
     //orphanRemoval = true :This ensures that if a Task is removed from the tasks list, it will be deleted from the database.
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
 
 

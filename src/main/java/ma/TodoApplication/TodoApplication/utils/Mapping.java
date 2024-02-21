@@ -15,11 +15,13 @@ import org.modelmapper.spi.MappingContext;
 @NoArgsConstructor
 public class Mapping {
     private static final ModelMapper modelMapper = new ModelMapper();
+
     public static Task maptoTask(TaskRequestDto taskRequestDto) {
-        return modelMapper.map(taskRequestDto,Task.class);
+        return modelMapper.map(taskRequestDto, Task.class);
     }
-    public  static TaskResponseDto mapToTaskResponseDto(Task task){
-        return modelMapper.map(task,TaskResponseDto.class);
+
+    public static TaskResponseDto mapToTaskResponseDto(Task task) {
+        return modelMapper.map(task, TaskResponseDto.class);
 
     }
 
@@ -30,8 +32,13 @@ public class Mapping {
 
 
     public static UserResponseDto mapToUserResponseDto(User user) {
+
         UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
         userResponseDto.setFullName(user.getFirstName() + " " + user.getLastName());
+
         return userResponseDto;
     }
+
 }
+
+

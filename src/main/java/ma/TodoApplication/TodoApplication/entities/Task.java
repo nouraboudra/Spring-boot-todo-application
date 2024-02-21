@@ -1,6 +1,9 @@
 package ma.TodoApplication.TodoApplication.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,22 +25,24 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //Check if null
-    @Column(name = "title")
+
+    @NotBlank(message = "Title is null")
+    @Column(name = "title", nullable = false)
     private String title;
 
 
     @Column(name = "description")
     private String description;
 
-    //Change to enum
-    //Check if null
+
+    @NotNull(message = "Status is null")
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    //Check if null
-    //Check if date is valid (due date in the futur)
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Future
+    @NotNull(message = "due Date is null")
+    @Temporal(TemporalType.DATE)
     @Column(name = "due_date")
     private Date dueDate;
 
@@ -46,11 +51,12 @@ public class Task {
     @CreationTimestamp
     private Date createdAt;
 
+
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Date updatedAt;
 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }

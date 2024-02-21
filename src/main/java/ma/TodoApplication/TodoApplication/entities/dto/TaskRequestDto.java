@@ -18,12 +18,7 @@ public class TaskRequestDto {
     private String title;
     private String description;
     private Long userId;
-
-    @NotNull(message = "status is mandatory")
     private Status status;
-
-    @Future
-    @NotNull(message = "due date is mandatory")
     private Date dueDate;
 
 
